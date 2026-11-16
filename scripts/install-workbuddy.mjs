@@ -11,7 +11,7 @@ export const MARKETPLACE_NAME = 'dshrsi-workbuddy';
 export const PLUGIN_ID = `workbuddy-rsi@${MARKETPLACE_NAME}`;
 const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-const HELP = `Install DSHRSI for WorkBuddy using the desktop application's plugin manager.
+const HELP = `Install WorkBuddy RSI using the desktop application's plugin manager.
 
 Usage: node scripts/install-workbuddy.mjs [options]
   --dry-run                  Print the plan without starting WorkBuddy or writing files

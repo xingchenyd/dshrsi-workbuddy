@@ -1,7 +1,7 @@
 name: WorkBuddy regression
 on:
   push:
-    branches: [codex/workbuddy-rsi]
+    branches: [main]
     paths: ['packages/**', 'test/**', 'scripts/**', 'workbuddy/**', 'package*.json', '.github/workflows/workbuddy.yml']
   pull_request:
     paths: ['packages/**', 'test/**', 'scripts/**', 'workbuddy/**', '.github/workflows/workbuddy.yml']

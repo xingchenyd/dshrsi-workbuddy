@@ -1,11 +1,7 @@
 {
   "name": "workbuddy-rsi",
-  "version": "0.1.1",
-  "description": "DSHRSI for WorkBuddy: observe recurring failures, validate adaptations, reuse and undo them locally.",
-  "author": {
-    "name": "yd (xingchenyd)",
-    "url": "https://github.com/xingchenyd"
-  },
+  "version": "0.2.0",
+  "description": "WorkBuddy RSI: native hooks, evidence-based improvements, regression gates and rollback.",
   "homepage": "https://github.com/xingchenyd/dshrsi-workbuddy",
   "repository": "https://github.com/xingchenyd/dshrsi-workbuddy",
   "license": "MIT",

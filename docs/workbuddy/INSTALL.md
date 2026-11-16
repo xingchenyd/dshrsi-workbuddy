@@ -29,7 +29,7 @@ npm run install:workbuddy -- --cli "C:\Users\YOUR_NAME\AppData\Local\Programs\Wo
 
 ## 使用发行包
 
-下载 Release 的 `workbuddy-rsi-0.1.1.zip`，完整解压。包内包含自包含插件市场和 `install-workbuddy.mjs`。在解压目录执行：
+下载 Release 的 `workbuddy-rsi-0.2.0.zip`，完整解压。包内包含自包含插件市场和 `install-workbuddy.mjs`。在解压目录执行：
 
 ```powershell
 node install-workbuddy.mjs --marketplace ".\workbuddy-rsi-marketplace"

@@ -1,15 +1,14 @@
 ---
 name: workbuddy-rsi
-description: Inspect, improve, validate and undo the local DSHRSI WorkBuddy adaptation library. Use when a user asks to inspect RSI, fix recurring agent tool failures, review a learned adaptation, or disable or undo RSI behavior.
-display_name: DSHRSI 自我改进
-display_name_en: DSHRSI for WorkBuddy
+description: Inspect, improve, validate and undo the local WorkBuddy RSI adaptation library. Use when a user asks to inspect RSI, fix recurring agent tool failures, review a learned adaptation, or disable or undo RSI behavior.
+display_name: WorkBuddy RSI 自我改进
+display_name_en: WorkBuddy RSI
 description_zh: 查看、验证、启用和撤销 WorkBuddy 的本地 RSI 改进；从实际失败证据生成可检查的改进代码。
 description_en: Inspect and improve WorkBuddy behavior using recorded evidence, executable adaptations, regression gates and rollback.
-version: 0.1.1
-author: yd (xingchenyd), based on qybaihe/dshrsi
+version: 0.2.0
 ---
 
-# DSHRSI for WorkBuddy
+# WorkBuddy RSI
 
 Use the bundled `scripts/rsi.mjs` with Node.js 22 or later. Resolve the script relative to this skill's actual installation folder; quote its absolute path, especially on Windows. Read [the adaptation reference](references/adaptations.md) when writing code or interpreting a validation failure.
 

@@ -1,0 +1,515 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-16T08:12:49.562Z",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "node": "v22.17.0"
+  },
+  "evidenceClass": "controlled mechanism benchmark with real OS subprocess attempts and real file I/O",
+  "modelCalls": 0,
+  "workbuddyDesktopModelSession": false,
+  "generator": "synth",
+  "methodology": {
+    "driver": "Fixed workload, independent fresh OFF and ON libraries; no live model or desktop conversation.",
+    "hookTransport": "In-process createWorkBuddyHost.handleHook receives WorkBuddy-shaped payloads; this workload does not exercise the daemon transport or WorkBuddy desktop.",
+    "failures": "The OS is asked to spawn a deliberately absent executable. ENOENT must be observed; no fabricated shell failure text is used.",
+    "control": "OFF uses the actual adapter off switch. ON uses default adaptation settings. Healthy commands run the current Node executable.",
+    "repeatedAttempts": "The driver deliberately ignores injected suggestions, so the measurement isolates hook enforcement.",
+    "probes": "The engine may deliberately allow a later retry to check whether the learned refusal is still valid; these retries count as failed process starts.",
+    "restart": "An independent fixture learns from two real failed starts, then the host is disposed and reopened against the same on-disk library. Live handler counters reset. Training costs are reported separately and must not be omitted from whole-workload totals.",
+    "startupContext": "True only when the reopened host returns context containing the deliberately absent executable name.",
+    "boundaries": "Not an LLM benchmark, not a WorkBuddy GUI test, not a task-success or latency study. One deliberately selected workload per arm."
+  },
+  "scenarios": {
+    "repeatedMissingCommand": {
+      "off": {
+        "missingAttempts": 12,
+        "failedProcessStarts": 12,
+        "preventedProcessStarts": 0,
+        "healthyAttempts": 4,
+        "healthySucceeded": 4,
+        "healthyPrevented": 0,
+        "trace": [
+          {
+            "id": "cold-missing-1",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "cold-missing-2",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "cold-missing-3",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "cold-healthy-1",
+            "kind": "healthy",
+            "decision": "pass",
+            "execution": "succeeded",
+            "exitCode": 0,
+            "errorCode": null
+          },
+          {
+            "id": "cold-missing-4",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "cold-missing-5",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "cold-missing-6",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "cold-healthy-2",
+            "kind": "healthy",
+            "decision": "pass",
+            "execution": "succeeded",
+            "exitCode": 0,
+            "errorCode": null
+          },
+          {
+            "id": "cold-missing-7",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "cold-missing-8",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "cold-missing-9",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "cold-healthy-3",
+            "kind": "healthy",
+            "decision": "pass",
+            "execution": "succeeded",
+            "exitCode": 0,
+            "errorCode": null
+          },
+          {
+            "id": "cold-missing-10",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "cold-missing-11",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "cold-missing-12",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "cold-healthy-4",
+            "kind": "healthy",
+            "decision": "pass",
+            "execution": "succeeded",
+            "exitCode": 0,
+            "errorCode": null
+          }
+        ]
+      },
+      "on": {
+        "missingAttempts": 12,
+        "failedProcessStarts": 5,
+        "preventedProcessStarts": 7,
+        "healthyAttempts": 4,
+        "healthySucceeded": 4,
+        "healthyPrevented": 0,
+        "trace": [
+          {
+            "id": "cold-missing-1",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "cold-missing-2",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "cold-missing-3",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "cold-healthy-1",
+            "kind": "healthy",
+            "decision": "pass",
+            "execution": "succeeded",
+            "exitCode": 0,
+            "errorCode": null
+          },
+          {
+            "id": "cold-missing-4",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "cold-missing-5",
+            "kind": "missing",
+            "decision": "deny",
+            "execution": "prevented"
+          },
+          {
+            "id": "cold-missing-6",
+            "kind": "missing",
+            "decision": "deny",
+            "execution": "prevented"
+          },
+          {
+            "id": "cold-healthy-2",
+            "kind": "healthy",
+            "decision": "pass",
+            "execution": "succeeded",
+            "exitCode": 0,
+            "errorCode": null
+          },
+          {
+            "id": "cold-missing-7",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "cold-missing-8",
+            "kind": "missing",
+            "decision": "deny",
+            "execution": "prevented"
+          },
+          {
+            "id": "cold-missing-9",
+            "kind": "missing",
+            "decision": "deny",
+            "execution": "prevented"
+          },
+          {
+            "id": "cold-healthy-3",
+            "kind": "healthy",
+            "decision": "pass",
+            "execution": "succeeded",
+            "exitCode": 0,
+            "errorCode": null
+          },
+          {
+            "id": "cold-missing-10",
+            "kind": "missing",
+            "decision": "deny",
+            "execution": "prevented"
+          },
+          {
+            "id": "cold-missing-11",
+            "kind": "missing",
+            "decision": "deny",
+            "execution": "prevented"
+          },
+          {
+            "id": "cold-missing-12",
+            "kind": "missing",
+            "decision": "deny",
+            "execution": "prevented"
+          },
+          {
+            "id": "cold-healthy-4",
+            "kind": "healthy",
+            "decision": "pass",
+            "execution": "succeeded",
+            "exitCode": 0,
+            "errorCode": null
+          }
+        ]
+      }
+    },
+    "restartAndReuse": {
+      "off": {
+        "missingAttempts": 6,
+        "failedProcessStarts": 6,
+        "preventedProcessStarts": 0,
+        "healthyAttempts": 2,
+        "healthySucceeded": 2,
+        "healthyPrevented": 0,
+        "training": {
+          "missingAttempts": 2,
+          "failedProcessStarts": 2,
+          "preventedProcessStarts": 0,
+          "healthyAttempts": 0,
+          "healthySucceeded": 0,
+          "healthyPrevented": 0,
+          "trace": [
+            {
+              "id": "training-missing-1",
+              "kind": "missing",
+              "decision": "pass",
+              "execution": "failed",
+              "exitCode": -4058,
+              "errorCode": "ENOENT"
+            },
+            {
+              "id": "training-missing-2",
+              "kind": "missing",
+              "decision": "pass",
+              "execution": "failed",
+              "exitCode": -4058,
+              "errorCode": "ENOENT"
+            }
+          ]
+        },
+        "adaptationsBeforeRestart": 0,
+        "adaptationsAfterRestart": 0,
+        "startupContext": false,
+        "trace": [
+          {
+            "id": "warm-missing-1",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "warm-missing-2",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "warm-missing-3",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "warm-healthy-1",
+            "kind": "healthy",
+            "decision": "pass",
+            "execution": "succeeded",
+            "exitCode": 0,
+            "errorCode": null
+          },
+          {
+            "id": "warm-missing-4",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "warm-missing-5",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "warm-missing-6",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "warm-healthy-2",
+            "kind": "healthy",
+            "decision": "pass",
+            "execution": "succeeded",
+            "exitCode": 0,
+            "errorCode": null
+          }
+        ]
+      },
+      "on": {
+        "missingAttempts": 6,
+        "failedProcessStarts": 3,
+        "preventedProcessStarts": 3,
+        "healthyAttempts": 2,
+        "healthySucceeded": 2,
+        "healthyPrevented": 0,
+        "training": {
+          "missingAttempts": 2,
+          "failedProcessStarts": 2,
+          "preventedProcessStarts": 0,
+          "healthyAttempts": 0,
+          "healthySucceeded": 0,
+          "healthyPrevented": 0,
+          "trace": [
+            {
+              "id": "training-missing-1",
+              "kind": "missing",
+              "decision": "pass",
+              "execution": "failed",
+              "exitCode": -4058,
+              "errorCode": "ENOENT"
+            },
+            {
+              "id": "training-missing-2",
+              "kind": "missing",
+              "decision": "pass",
+              "execution": "failed",
+              "exitCode": -4058,
+              "errorCode": "ENOENT"
+            }
+          ]
+        },
+        "adaptationsBeforeRestart": 1,
+        "adaptationsAfterRestart": 1,
+        "startupContext": true,
+        "trace": [
+          {
+            "id": "warm-missing-1",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "warm-missing-2",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "warm-missing-3",
+            "kind": "missing",
+            "decision": "deny",
+            "execution": "prevented"
+          },
+          {
+            "id": "warm-healthy-1",
+            "kind": "healthy",
+            "decision": "pass",
+            "execution": "succeeded",
+            "exitCode": 0,
+            "errorCode": null
+          },
+          {
+            "id": "warm-missing-4",
+            "kind": "missing",
+            "decision": "deny",
+            "execution": "prevented"
+          },
+          {
+            "id": "warm-missing-5",
+            "kind": "missing",
+            "decision": "pass",
+            "execution": "failed",
+            "exitCode": -4058,
+            "errorCode": "ENOENT"
+          },
+          {
+            "id": "warm-missing-6",
+            "kind": "missing",
+            "decision": "deny",
+            "execution": "prevented"
+          },
+          {
+            "id": "warm-healthy-2",
+            "kind": "healthy",
+            "decision": "pass",
+            "execution": "succeeded",
+            "exitCode": 0,
+            "errorCode": null
+          }
+        ]
+      }
+    },
+    "verification": {
+      "off": {
+        "actualFilesWritten": 1,
+        "unverifiedStopBlocked": false,
+        "realSyntaxChecksPassed": 1,
+        "verifiedStopAllowed": true,
+        "interpretation": "A request to verify, not proof that an arbitrary edit is correct. Both arms run the same real syntax check."
+      },
+      "on": {
+        "actualFilesWritten": 1,
+        "unverifiedStopBlocked": true,
+        "realSyntaxChecksPassed": 1,
+        "verifiedStopAllowed": true,
+        "interpretation": "A request to verify, not proof that an arbitrary edit is correct. Both arms run the same real syntax check."
+      }
+    }
+  },
+  "observedValidationStages": [
+    "static",
+    "load",
+    "rehearsal",
+    "regression",
+    "policy"
+  ]
+}

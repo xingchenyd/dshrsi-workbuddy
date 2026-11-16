@@ -40,7 +40,7 @@ test('clean build is self-contained after source removal, including the bundled 
     // This absolute path was returned by mkdtemp; it cannot escape its dedicated fixture.
     fs.rmSync(temporary, { recursive: true, force: true, maxRetries: 10, retryDelay: 25 })
   })
-  for (const item of ['scripts/build-workbuddy.mjs', 'workbuddy/plugin', 'packages/workbuddy-rsi', 'packages/dsh-rsi/src', 'packages/dsh-rsi/docs', 'packages/dsh-rsi/package.json', 'LICENSE', 'NOTICE', 'README.md', 'AUTHORS.md', 'README.upstream.md', 'docs/workbuddy']) {
+  for (const item of ['scripts/build-workbuddy.mjs', 'workbuddy/plugin', 'packages/workbuddy-rsi', 'packages/dsh-rsi/src', 'packages/dsh-rsi/docs', 'packages/dsh-rsi/package.json', 'LICENSE', 'NOTICE', 'README.md', 'assets/workbuddy', 'docs/workbuddy']) {
     copyTree(path.join(repository, item), path.join(source, item))
   }
   // Git does not preserve empty directories. Exercise a fresh checkout rather
@@ -63,7 +63,7 @@ test('clean build is self-contained after source removal, including the bundled 
     const relative = path.relative(detached, item)
     assert.deepEqual(fs.readFileSync(path.join(marketPlugin, relative)), fs.readFileSync(item), `Marketplace omitted or changed ${relative}`)
   }
-  for (const item of ['AUTHORS.md', 'README.upstream.md', 'docs/workbuddy/INSTALL.md', 'docs/workbuddy/DESIGN.md', 'docs/workbuddy/CONTRIBUTING.md', 'packages/dsh-rsi/docs/DETAIL.md']) {
+  for (const item of ['NOTICE', 'assets/workbuddy/hero.svg', 'docs/workbuddy/INSTALL.md', 'docs/workbuddy/DESIGN.md', 'docs/workbuddy/CONTRIBUTING.md', 'packages/dsh-rsi/docs/DETAIL.md']) {
     assert.ok(fs.statSync(path.join(detached, item)).isFile(), `Missing linked documentation: ${item}`)
   }
   for (const markdown of files(path.join(detached, 'skills')).filter(item => item.endsWith('.md'))) {
@@ -88,8 +88,8 @@ test('clean build is self-contained after source removal, including the bundled 
 
   cli = path.join(detached, 'packages/workbuddy-rsi/bin/rsi.mjs')
   const skillCli = path.join(detached, 'skills/workbuddy-rsi/scripts/rsi.mjs')
-  assert.match(run([cli, '--help'], { cwd: temporary }), /DSHRSI for WorkBuddy/)
-  assert.match(run([skillCli, '--help'], { cwd: temporary }), /DSHRSI for WorkBuddy/)
+  assert.match(run([cli, '--help'], { cwd: temporary }), /WorkBuddy RSI/)
+  assert.match(run([skillCli, '--help'], { cwd: temporary }), /WorkBuddy RSI/)
   const status = JSON.parse(run([skillCli, 'status', '--home', home], { cwd: temporary }))
   assert.equal(status.enabled, true)
   assert.equal(status.generator, 'synth')

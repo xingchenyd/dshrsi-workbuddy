@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { request } from '../src/client.mjs'
 
-const help = `DSHRSI for WorkBuddy 0.1.1
+const help = `WorkBuddy RSI 0.2.0
 Usage: node rsi.mjs <command> [arguments] [--home ABSOLUTE_DIRECTORY]
 
 status                    Inspect enabled state and learned adaptations

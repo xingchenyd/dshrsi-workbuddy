@@ -1,5 +1,5 @@
 ---
-description: Inspect, improve, disable or undo DSHRSI for WorkBuddy
+description: Inspect, improve, disable or undo WorkBuddy RSI
 ---
 
 Use the `workbuddy-rsi` skill to handle this request: $ARGUMENTS

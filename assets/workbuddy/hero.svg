@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-labelledby="title desc">
+<title id="title">WorkBuddy RSI — 让每次改进，成为下一次的起点</title>
+<desc id="desc">机制示意：观察工具失败，验证改进，保存到本地，并在后续会话复用。不是 WorkBuddy 产品界面截图。</desc>
+<defs>
+ <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#112C32"/><stop offset="1" stop-color="#071A22"/></linearGradient>
+ <linearGradient id="accent"><stop stop-color="#AAF0C6"/><stop offset="1" stop-color="#6FD4C6"/></linearGradient>
+ <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#A8C7C4" stroke-opacity=".055"/></pattern>
+ <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#78B6AF"/></marker>
+</defs>
+<rect width="1200" height="570" rx="24" fill="url(#bg)"/>
+<rect width="1200" height="570" rx="24" fill="url(#grid)"/>
+<g font-family="Segoe UI,Microsoft YaHei,PingFang SC,Noto Sans CJK SC,sans-serif">
+ <rect x="56" y="54" width="151" height="34" rx="17" fill="#B8E8CB" fill-opacity=".12" stroke="#75B09F" stroke-opacity=".6"/>
+ <text x="131" y="77" text-anchor="middle" font-size="18" font-weight="600" fill="#B9E9CD">NATIVE HOOKS</text>
+ <text x="56" y="163" font-size="56" font-weight="700" letter-spacing="-1.5" fill="#F4F8EE">WorkBuddy RSI</text>
+ <text x="58" y="221" font-size="30" font-weight="500" fill="#E8F4EC">让每次改进，</text>
+ <text x="58" y="265" font-size="30" font-weight="500" fill="#E8F4EC">成为下一次的起点。</text>
+ <text x="58" y="319" font-size="20" fill="#ACC7C6">观察重复失败 · 验证改进 · 跨会话复用</text>
+ <rect x="58" y="365" width="182" height="45" rx="9" fill="url(#accent)"/>
+ <text x="149" y="395" text-anchor="middle" font-size="20" font-weight="700" fill="#10332E">验证后，才生效</text>
+ <rect x="254" y="365" width="145" height="45" rx="9" fill="none" stroke="#4E797B"/>
+ <text x="326" y="395" text-anchor="middle" font-size="20" fill="#DAEBE2">随时可撤销</text>
+ <text x="58" y="478" font-size="18" fill="#8FAEAE">LOCAL FIRST</text>
+ <text x="58" y="510" font-size="20" fill="#D7E5E2">本地改进库 / 无额外模型 API / Node.js 22+</text>
+
+ <rect x="642" y="58" width="502" height="454" rx="20" fill="#18373C" stroke="#365B5B"/>
+ <circle cx="669" cy="84" r="5" fill="#92B8B0"/><circle cx="688" cy="84" r="5" fill="#456E6C"/><circle cx="707" cy="84" r="5" fill="#456E6C"/>
+ <text x="1117" y="91" text-anchor="end" font-size="18" fill="#9EBDB7">改进循环 · 机制示意</text>
+ <path d="M675 109H1114" stroke="#355558"/>
+ <rect x="676" y="137" width="436" height="78" rx="12" fill="#263D40" stroke="#566363"/>
+ <circle cx="709" cy="175" r="16" fill="#D59B81" fill-opacity=".18"/>
+ <text x="709" y="182" text-anchor="middle" font-size="20" font-weight="700" fill="#F2B497">!</text>
+ <text x="742" y="168" font-size="22" font-weight="600" fill="#F0ECE2">同一个失败，再次出现</text>
+ <text x="742" y="197" font-size="18" fill="#AFC0BA">工具结果 → 真实证据 → 问题签名</text>
+ <path d="M894 215V242" stroke="#78B6AF" stroke-width="2" marker-end="url(#arrow)"/>
+ <rect x="676" y="253" width="436" height="88" rx="12" fill="#20493F" stroke="#689C83"/>
+ <text x="701" y="287" font-size="22" font-weight="600" fill="#C1EDCE">生成改进，经过五阶段验证</text>
+ <text x="701" y="317" font-size="18" fill="#A7CDBB">静态 · 加载 · 回放 · 回归 · 权限</text>
+ <path d="M894 341V369" stroke="#78B6AF" stroke-width="2" marker-end="url(#arrow)"/>
+ <rect x="676" y="380" width="436" height="94" rx="12" fill="#102B32" stroke="#4C7473"/>
+ <text x="701" y="416" font-size="22" font-weight="600" fill="#D5F3DE">下一次会话，带着改进开始</text>
+ <text x="701" y="447" font-size="18" fill="#A5C7C0">提示 / 拒绝重复错误 / 要求验证</text>
+</g>
+</svg>

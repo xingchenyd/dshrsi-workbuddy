@@ -1,20 +1,23 @@
-# 独立展示与向上游贡献
+# 参与 WorkBuddy RSI
 
-本仓库：[xingchenyd/dshrsi-workbuddy](https://github.com/xingchenyd/dshrsi-workbuddy)。上游：[qybaihe/dshrsi](https://github.com/qybaihe/dshrsi)。基础提交 `c83c10c092215f6709c75be4846425b5157a6d48`。
+本项目独立维护 WorkBuddy 插件、发行包、验证工具及文档。日常开发基于 `main`；提交改进时，新建功能分支并向本仓库发起 Pull Request。
 
-这里采用 GitHub fork：拥有独立页面、发行包、CI 和贡献记录，同时保留上游关系。详见 [GitHub fork 官方说明](https://docs.github.com/en/pull-requests/reference/forks)。WorkBuddy 展示分支为 `codex/workbuddy-rsi`；fork 中的 `main` 保留上游基线。
+## 本地检查
 
-本次交付不向原作者仓库推送、不改变其默认分支、不自动合并，也不自动向作者发送消息。后续有两种回馈方式：
+```sh
+npm test
+npm run benchmark:workbuddy
+npm run build:workbuddy
+```
 
-1. **通用修复 PR**：已经单独发布 [codex/upstream-command-escape](https://github.com/xingchenyd/dshrsi-workbuddy/tree/codex/upstream-command-escape)，只含程序名正则修复及六项测试。可对照最新上游后提 PR，由原作者审核决定合并。该分支测试位于 `test/workbuddy/signature.test.mjs`，可直接用 `node --test test/workbuddy/signature.test.mjs` 执行；正式向上游提交时宜移入其 `test/unit` 默认测试集。
-2. **适配功能 PR**：先协商是否希望上游同时维护 WorkBuddy，再将适配作为独立 package 提 PR。本 fork 的安装、说明和 Release 可以继续独立维护。
+运行时与自动回归仅依赖 Node.js 22+ 标准库，不需要安装根目录中为原引擎宿主测试保留的开发依赖。跨平台 CI 检查 Windows、Ubuntu、macOS 与 Node 22、24。
 
-发 PR 时解释具体失败、修复后行为和验证命令；不要把 WorkBuddy 未运行的模型评估写成结果，也不要把原项目 benchmark 当成适配成绩。保留原版权通知，新增贡献以实际提交记录体现。
+PR 应说明具体问题、修复后的行为和验证范围。Hook 协议及本地辅助进程的测试不能代替真实模型任务评估；提交性能或效果变化时，请附原始数据、对照条件和复现命令。
 
-## 通用修复 PR 草稿
+## 发行约定
 
-Title: Fix command matching for executable names containing regex characters
+修改插件中打包的文件后，同步提升根 package、WorkBuddy package、插件清单、Skill 与 CLI 显示版本。WorkBuddy 对相同版本可能复用旧缓存，安装器会逐文件核对 SHA256 并拒绝陈旧副本。
 
-`commandPositionSource()` used a corrupted replacement string when escaping executable names. Programs such as `python3.13`, `foo.exe` and `clang++` could produce an invalid regex or incorrect matches. Restore literal escaping and cover exact command positions, discovery commands, suffix mismatches and masked exit-zero failures.
+正式构建后再验证原生安装。每台机器的安装记录放在 `docs/workbuddy-user-install.json`，不打包进插件，避免安装记录改变被验证的发行包。
 
-Validation: upstream unit tests and six focused regression cases. No WorkBuddy integration is required for this fix.
+不要提交个人 RSI 状态、对话、凭据或任务内容。保留复用组件的 MIT 许可证和 NOTICE；来源说明见主页的致谢。

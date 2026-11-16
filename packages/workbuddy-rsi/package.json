@@ -1,9 +1,9 @@
 {
   "name": "workbuddy-rsi",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
-  "description": "DSHRSI host adapter for Tencent WorkBuddy Desktop hooks",
+  "description": "WorkBuddy RSI: native hooks, evidence-based improvements, regression gates and rollback.",
   "license": "MIT",
   "engines": {
     "node": ">=22"

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="660" viewBox="0 0 1200 660" role="img" aria-labelledby="title desc">
+<title id="title">WorkBuddy RSI 工作原理</title><desc id="desc">WorkBuddy 原生事件进入本地进程，经过观察、生成、五阶段验证、持久化，再通过 Hooks 返回上下文或限制动作。用户可以查看、停用或撤销。</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#5C837A"/></marker></defs>
+<rect width="1200" height="660" rx="20" fill="#F7F8F1"/>
+<g font-family="Segoe UI,Microsoft YaHei,PingFang SC,Noto Sans CJK SC,sans-serif">
+ <text x="48" y="61" fill="#183D39" font-size="32" font-weight="700">从一次失败，到下一次可复用的改进</text>
+ <text x="48" y="96" fill="#62776F" font-size="20">改进代码经过检查，行为通过原生 Hooks 生效，历史留在本地。</text>
+ <rect x="48" y="136" width="1104" height="77" rx="12" fill="#183D39"/>
+ <text x="75" y="169" fill="#F5FAEF" font-size="24" font-weight="600">WorkBuddy 原生事件</text>
+ <text x="75" y="198" fill="#BBD5C6" font-size="18">会话开始 / 用户输入 / 工具调用前后 / 工具失败 / 任务结束</text>
+ <path d="M600 213V250" stroke="#5C837A" stroke-width="2" marker-end="url(#a)"/>
+ <rect x="48" y="264" width="1104" height="224" rx="16" fill="#EAF0E5" stroke="#CAD9C8"/>
+ <text x="73" y="296" fill="#62776F" font-size="18" font-weight="600">本地辅助进程 · 保留会话状态</text>
+ <rect x="73" y="321" width="224" height="134" rx="12" fill="#FFFFFF" stroke="#D2DED0"/>
+ <text x="93" y="351" fill="#58806E" font-size="18" font-weight="700">01 · OBSERVE</text>
+ <text x="93" y="386" fill="#183D39" font-size="24" font-weight="600">识别重复问题</text>
+ <text x="93" y="421" fill="#607369" font-size="18">规范事件，保留证据</text>
+ <path d="M298 387H331" stroke="#5C837A" stroke-width="2" marker-end="url(#a)"/>
+ <rect x="342" y="321" width="224" height="134" rx="12" fill="#FFFFFF" stroke="#D2DED0"/>
+ <text x="362" y="351" fill="#58806E" font-size="18" font-weight="700">02 · GENERATE</text>
+ <text x="362" y="386" fill="#183D39" font-size="24" font-weight="600">形成候选改进</text>
+ <text x="362" y="421" fill="#607369" font-size="18">模板 / 当前模型提交</text>
+ <path d="M567 387H600" stroke="#5C837A" stroke-width="2" marker-end="url(#a)"/>
+ <rect x="611" y="321" width="224" height="134" rx="12" fill="#D8EBD8" stroke="#9DC59C"/>
+ <text x="631" y="351" fill="#376548" font-size="18" font-weight="700">03 · VALIDATE</text>
+ <text x="631" y="386" fill="#183D39" font-size="24" font-weight="600">五阶段验证</text>
+ <text x="631" y="421" fill="#476C54" font-size="18">回放失败，保护成功</text>
+ <path d="M836 387H869" stroke="#5C837A" stroke-width="2" marker-end="url(#a)"/>
+ <rect x="880" y="321" width="247" height="134" rx="12" fill="#FFFFFF" stroke="#D2DED0"/>
+ <text x="900" y="351" fill="#58806E" font-size="18" font-weight="700">04 · REUSE</text>
+ <text x="900" y="386" fill="#183D39" font-size="24" font-weight="600">保存并复用</text>
+ <text x="900" y="421" fill="#607369" font-size="18">状态 / 版本 / 审计记录</text>
+ <path d="M600 488V522" stroke="#5C837A" stroke-width="2" marker-end="url(#a)"/>
+ <rect x="48" y="536" width="720" height="78" rx="12" fill="#FFFFFF" stroke="#C6D8C7"/>
+ <text x="74" y="568" fill="#183D39" font-size="23" font-weight="600">生效：追加上下文 / deny / ask / 验证续跑</text>
+ <text x="74" y="597" fill="#64786C" font-size="18">不输出权限 allow；验证续跑有次数上限</text>
+ <rect x="790" y="536" width="362" height="78" rx="12" fill="#E6ECDD"/>
+ <text x="814" y="569" fill="#183D39" font-size="23" font-weight="600">随时查看、停用和撤销</text>
+ <text x="814" y="597" fill="#64786C" font-size="18">status / off / disable / undo</text>
+</g></svg>

@@ -32,21 +32,22 @@ for (const name of ['workbuddy-rsi', 'dsh-rsi']) {
   if (name === 'workbuddy-rsi') copyTree(path.join(root, 'packages', name, 'bin'), path.join(dest, 'bin'))
   if (name === 'dsh-rsi') copyTree(path.join(root, 'packages', name, 'docs'), path.join(dest, 'docs'))
 }
-for (const name of ['LICENSE', 'NOTICE', 'README.md', 'AUTHORS.md', 'README.upstream.md']) fs.copyFileSync(path.join(root, name), path.join(output, name))
+for (const name of ['LICENSE', 'NOTICE', 'README.md']) fs.copyFileSync(path.join(root, name), path.join(output, name))
 copyTree(path.join(root, 'docs/workbuddy'), path.join(output, 'docs/workbuddy'))
+copyTree(path.join(root, 'assets/workbuddy'), path.join(output, 'assets/workbuddy'))
 const events = ['SessionStart', 'UserPromptSubmit', 'PreToolUse', 'PostToolUse', 'PostToolUseFailure', 'Stop', 'SessionEnd']
 const hooks = Object.fromEntries(events.map(event => [event, [{
   ...(event.startsWith('PreTool') || event.startsWith('PostTool') ? { matcher: '*' } : {}),
   hooks: [{ type: 'command', command: 'node "${CODEBUDDY_PLUGIN_ROOT}/packages/workbuddy-rsi/bin/hook.mjs"', timeout: 20 }],
 }]]))
 fs.mkdirSync(path.join(output, 'hooks'), { recursive: true })
-fs.writeFileSync(path.join(output, 'hooks/hooks.json'), JSON.stringify({ description: 'DSHRSI WorkBuddy native lifecycle adapter', hooks }, null, 2) + '\n')
+fs.writeFileSync(path.join(output, 'hooks/hooks.json'), JSON.stringify({ description: 'WorkBuddy RSI native lifecycle hooks', hooks }, null, 2) + '\n')
 const marketplace = path.join(dist, 'workbuddy-rsi-marketplace')
 reset(marketplace)
 fs.mkdirSync(path.join(marketplace, '.codebuddy-plugin'), { recursive: true })
 copyTree(output, path.join(marketplace, 'plugins/workbuddy-rsi'))
 fs.writeFileSync(path.join(marketplace, '.codebuddy-plugin/marketplace.json'), JSON.stringify({
   name: 'dshrsi-workbuddy', owner: { name: 'yd (xingchenyd)' },
-  plugins: [{ name: 'workbuddy-rsi', source: './plugins/workbuddy-rsi', description: 'DSHRSI native WorkBuddy adapter', version: JSON.parse(fs.readFileSync(path.join(root, 'packages/workbuddy-rsi/package.json'), 'utf8')).version }],
+  plugins: [{ name: 'workbuddy-rsi', source: './plugins/workbuddy-rsi', description: 'WorkBuddy RSI native plugin', version: JSON.parse(fs.readFileSync(path.join(root, 'packages/workbuddy-rsi/package.json'), 'utf8')).version }],
 }, null, 2) + '\n')
 console.log(JSON.stringify({ plugin: output, marketplace }, null, 2))
