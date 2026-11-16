@@ -38,7 +38,7 @@ test('clean build is self-contained after source removal, including the bundled 
   t.after(() => {
     if (cli && fs.existsSync(cli)) spawnSync(process.execPath, [cli, 'stop', '--home', home], { encoding: 'utf8', timeout: 15000, windowsHide: true })
     // This absolute path was returned by mkdtemp; it cannot escape its dedicated fixture.
-    fs.rmSync(temporary, { recursive: true, force: true })
+    fs.rmSync(temporary, { recursive: true, force: true, maxRetries: 10, retryDelay: 25 })
   })
   for (const item of ['scripts/build-workbuddy.mjs', 'workbuddy/plugin', 'packages/workbuddy-rsi', 'packages/dsh-rsi/src', 'packages/dsh-rsi/docs', 'packages/dsh-rsi/package.json', 'LICENSE', 'NOTICE', 'README.md', 'AUTHORS.md', 'README.upstream.md', 'docs/workbuddy']) {
     copyTree(path.join(repository, item), path.join(source, item))
@@ -48,7 +48,8 @@ test('clean build is self-contained after source removal, including the bundled 
   const optionalHooks = path.join(source, 'workbuddy/plugin/hooks')
   if (fs.existsSync(optionalHooks) && fs.readdirSync(optionalHooks).length === 0) fs.rmdirSync(optionalHooks)
   const built = JSON.parse(run([path.join(source, 'scripts/build-workbuddy.mjs')], { cwd: temporary }))
-  assert.equal(built.plugin, path.join(source, 'dist/workbuddy-rsi'))
+  // macOS exposes its temporary directory through /var -> /private/var.
+  assert.equal(fs.realpathSync(built.plugin), fs.realpathSync(path.join(source, 'dist/workbuddy-rsi')))
   fs.renameSync(built.plugin, detached)
   fs.renameSync(built.marketplace, marketplace)
   fs.rmSync(source, { recursive: true, force: true })

@@ -22,7 +22,7 @@ export function callEndpoint(endpoint, payload, { timeoutMs = 12000 } = {}) {
   return new Promise((resolve, reject) => {
     const body = JSON.stringify(payload)
     if (Buffer.byteLength(body) > MAX_INPUT_BYTES) return reject(new Error('request exceeds 1 MiB'))
-    const req = http.request({ host: '127.0.0.1', port: endpoint.port, path: '/rsi', method: 'POST', headers: { 'content-type': 'application/json', 'content-length': Buffer.byteLength(body), authorization: `Bearer ${endpoint.token}` }, timeout: timeoutMs }, res => {
+    const req = http.request({ host: '127.0.0.1', port: endpoint.port, path: '/rsi', method: 'POST', agent: false, headers: { 'content-type': 'application/json', 'content-length': Buffer.byteLength(body), authorization: `Bearer ${endpoint.token}` }, timeout: timeoutMs }, res => {
       let bytes = 0
       const parts = []
       res.on('data', chunk => { bytes += chunk.length; if (bytes > MAX_INPUT_BYTES) { res.destroy(); reject(new Error('response exceeds 1 MiB')) } else parts.push(chunk) })
@@ -69,7 +69,9 @@ async function ensureStarted(home) {
     if (started) return started
     // Only our exact endpoint path is removed; no process is killed based on a stale PID.
     try { fs.unlinkSync(endpointFile(home)) } catch (error) { if (error.code !== 'ENOENT') throw error }
-    const child = spawn(process.execPath, [fileURLToPath(new URL('./daemon.mjs', import.meta.url)), '--home', home], { detached: true, windowsHide: true, stdio: 'ignore', env: { ...process.env, WB_RSI_HOME: home } })
+    // A persistent helper must not hold a Windows cwd handle on the invoking
+    // workspace (which may be renamed or removed as soon as the hook returns).
+    const child = spawn(process.execPath, [fileURLToPath(new URL('./daemon.mjs', import.meta.url)), '--home', home], { cwd: home, detached: true, windowsHide: true, stdio: 'ignore', env: { ...process.env, WB_RSI_HOME: home } })
     let failure
     child.on('error', error => { failure = error })
     child.unref()
@@ -83,12 +85,28 @@ async function ensureStarted(home) {
   } finally { fs.closeSync(descriptor); try { fs.unlinkSync(lock) } catch {} }
 }
 
+async function waitForStopped(home, endpoint, timeoutMs) {
+  const until = Date.now() + timeoutMs
+  while (Date.now() < until) {
+    let authenticated = false
+    try { await callEndpoint(endpoint, { op: 'ping' }, { timeoutMs: Math.min(250, Math.max(1, until - Date.now())) }); authenticated = true } catch {}
+    // The daemon removes its own endpoint only after the HTTP listener closes.
+    // Compare tokens so a concurrent, newly started helper is never stopped here.
+    if (!authenticated && readEndpoint(home)?.token !== endpoint.token) return
+    await pause(25)
+  }
+  throw new Error('helper did not finish stopping within the timeout')
+}
+
 /** Authenticated local-only IPC. No WorkBuddy credentials or transcript access is needed. */
 export async function request(payload, { home, timeoutMs } = {}) {
   const directory = resolveHome(home)
   if (payload?.op === 'stop') {
     const endpoint = await running(directory)
-    return endpoint ? callEndpoint(endpoint, payload, { timeoutMs }) : { stopped: true, wasRunning: false }
+    if (!endpoint) return { stopped: true, wasRunning: false }
+    const result = await callEndpoint(endpoint, payload, { timeoutMs })
+    await waitForStopped(directory, endpoint, Math.min(timeoutMs ?? 5000, 15000))
+    return result
   }
   const endpoint = await ensureStarted(directory)
   // Never retry a possibly completed mutation after a timeout.

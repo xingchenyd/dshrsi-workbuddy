@@ -8,18 +8,20 @@ import test from 'node:test'
 import { callEndpoint, readEndpoint, request } from '../../packages/workbuddy-rsi/src/client.mjs'
 
 const hookFile = fileURLToPath(new URL('../../packages/workbuddy-rsi/bin/hook.mjs', import.meta.url))
-const pause = ms => new Promise(resolve => setTimeout(resolve, ms))
 async function stop(home) {
+  const endpoint = readEndpoint(home)
   await request({ op: 'stop' }, { home })
-  for (let tries = 0; tries < 100 && readEndpoint(home); tries++) await pause(20)
   assert.equal(readEndpoint(home), undefined, 'helper did not remove its endpoint after stopping')
+  if (endpoint) await assert.rejects(callEndpoint(endpoint, { op: 'ping' }, { timeoutMs: 250 }), 'stop returned before the helper listener closed')
 }
 function fixture(t) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'wb-rsi-ipc-'))
   const home = path.join(root, 'state')
   const cwd = path.join(root, 'workspace with spaces')
   fs.mkdirSync(cwd)
-  t.after(async () => { await stop(home); fs.rmSync(root, { recursive: true, force: true }) })
+  // Windows may release the terminated process cwd handle just after listener
+  // closure. Retry only removal of this fixture's own temporary directory.
+  t.after(async () => { await stop(home); await fs.promises.rm(root, { recursive: true, force: true, maxRetries: 10, retryDelay: 25 }) })
   return { root, home, cwd }
 }
 function runHook(home, cwd, event, extra = {}) {
@@ -30,9 +32,15 @@ function runHook(home, cwd, event, extra = {}) {
 
 test('separate hook processes share a live engine, then reload persisted adaptations after restart', { timeout: 30000 }, async t => {
   const { home, cwd } = fixture(t)
-  assert.equal(runHook(home, cwd, 'SessionStart').status, 0)
+  assert.equal(runHook(home, cwd, 'SessionStart', { cwd: undefined }).status, 0)
   const original = readEndpoint(home)
   assert.ok(original)
+  const started = await request({ op: 'status' }, { home })
+  assert.equal(fs.realpathSync(started.sessions[0].cwd), fs.realpathSync(cwd), 'an omitted cwd must resolve in the hook caller, not in the helper state directory')
+  const moved = `${cwd} renamed`
+  fs.renameSync(cwd, moved)
+  fs.renameSync(moved, cwd)
+  assert.equal((await callEndpoint(original, { op: 'ping' })).pid, original.pid, 'helper must stay usable without locking the workspace cwd')
   for (let i = 0; i < 2; i++) {
     const input = { tool_use_id: `failure-${i}`, tool_name: 'execute_command', tool_input: { command: 'frobnicate test' } }
     assert.equal(runHook(home, cwd, 'PreToolUse', input).status, 0)

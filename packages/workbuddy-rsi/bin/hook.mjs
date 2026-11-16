@@ -12,6 +12,9 @@ try {
   }
   let payload
   try { payload = JSON.parse(Buffer.concat(chunks).toString('utf8')) } catch { throw new Error('hook input must be valid JSON') }
+  // The helper has its own stable cwd; omitted hook cwd belongs to this short-
+  // lived caller, never to the helper's state directory.
+  if (payload && typeof payload === 'object' && !Array.isArray(payload) && payload.cwd === undefined) payload.cwd = process.cwd()
   const reply = await request({ op: 'hook', payload })
   process.stdout.write(`${JSON.stringify(reply.output ?? {})}\n`)
   process.exitCode = reply.exitCode ?? 0

@@ -15,17 +15,24 @@ export async function startDaemon({ home = resolveHome(), idleMs = 30 * 60 * 100
   let queue = Promise.resolve()
   let idle
   let closing = false
+  let shutdownPromise
   function resetIdle() { clearTimeout(idle); idle = setTimeout(() => shutdown(), idleMs); idle.unref() }
   function shutdown() {
-    if (closing) return
+    if (shutdownPromise) return shutdownPromise
     closing = true
     clearTimeout(idle)
     host.dispose()
-    try { if (JSON.parse(fs.readFileSync(file, 'utf8')).token === token) fs.unlinkSync(file) } catch {}
-    server.close()
-    server.closeIdleConnections?.()
+    shutdownPromise = new Promise(resolve => {
+      server.close(() => {
+        try { if (JSON.parse(fs.readFileSync(file, 'utf8')).token === token) fs.unlinkSync(file) } catch {}
+        resolve()
+      })
+      server.closeIdleConnections?.()
+    })
+    return shutdownPromise
   }
   async function dispatch(message) {
+    if (closing) throw new Error('helper is shutting down')
     if (!message || typeof message !== 'object' || Array.isArray(message)) throw new Error('request must be an object')
     switch (message.op) {
       case 'ping': return { pid: process.pid, protocol: 1 }
@@ -39,11 +46,12 @@ export async function startDaemon({ home = resolveHome(), idleMs = 30 * 60 * 100
       case 'findings': return host.findings(message.sessionId)
       case 'propose': return host.propose({ source: message.source, sessionId: message.sessionId, signature: message.signature })
       case 'approve': return host.approve(message.id)
-      case 'stop': setTimeout(shutdown, 20); return { stopped: true, wasRunning: true }
+      case 'stop': return { stopped: true, wasRunning: true }
       default: throw new Error('unknown operation')
     }
   }
   const server = http.createServer((req, res) => {
+    if (closing) { res.writeHead(503, { 'content-type': 'application/json', connection: 'close' }); res.end('{"error":"helper is shutting down"}'); req.resume(); return }
     const supplied = Buffer.from(req.headers.authorization ?? '')
     const expected = Buffer.from(`Bearer ${token}`)
     if (req.method !== 'POST' || req.url !== '/rsi' || supplied.length !== expected.length || !timingSafeEqual(supplied, expected)) {
@@ -68,6 +76,9 @@ export async function startDaemon({ home = resolveHome(), idleMs = 30 * 60 * 100
           const result = await dispatch(message)
           const body = JSON.stringify({ result: result ?? null })
           if (Buffer.byteLength(body) > MAX_INPUT_BYTES) throw new Error('response exceeds 1 MiB; narrow the query')
+          // Flush the authenticated stop acknowledgement, then close immediately.
+          // Endpoint removal is the completion signal, not an arbitrary delay.
+          if (message.op === 'stop') res.once('finish', shutdown)
           res.writeHead(200, { 'content-type': 'application/json' }); res.end(body)
         } catch (error) {
           res.writeHead(400, { 'content-type': 'application/json' }); res.end(JSON.stringify({ error: redact(error.message).slice(0, 500) }))
