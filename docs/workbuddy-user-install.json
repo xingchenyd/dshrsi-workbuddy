@@ -2,16 +2,26 @@
   "date": "2026-11-16",
   "platform": "Windows",
   "plugin": "workbuddy-rsi@dshrsi-workbuddy",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "scope": "user",
   "enabled": true,
   "native_plugin_manager": "passed",
   "installed_files_match_release_zip_sha256": true,
-  "verified_files": 46,
+  "verified_files": 49,
   "installed_cli_status": "passed",
   "adapter_enabled": true,
-  "archive_sha256": "50ba7ad880865205156c56f667c5b08a0fcd381cc37b33b759073aa7a74a4485",
-  "source_ci": "https://github.com/xingchenyd/dshrsi-workbuddy/actions/runs/43827168315",
+  "archive_sha256": "66d2a0916ff3c694b588cb5f93d357e20c9bde336ae2d3b969c39570805bb568",
+  "source_ci": "https://github.com/xingchenyd/dshrsi-workbuddy/actions/runs/43830206021",
+  "tested_source_commit": "bdf9f040cc8b26e60f3eb83040974ee204a4b9ca",
+  "ci_jobs_passed": 6,
+  "tests_per_job": 189,
+  "repository": {
+    "fork": false,
+    "default_branch": "main",
+    "branches": [
+      "main"
+    ]
+  },
   "real_workbuddy_model_conversation": "not run",
-  "notes": "Static plugin installation and local runtime were verified. This does not establish model task performance."
+  "notes": "Native Windows installation and installed local runtime verified against the actual release ZIP. The benchmark uses controlled inputs and real OS execution, not a model-task performance evaluation."
 }
