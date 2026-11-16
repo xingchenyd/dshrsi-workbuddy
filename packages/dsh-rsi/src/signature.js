@@ -43,7 +43,7 @@ export function missingProgram(text) {
  * past environment assignments. It does not match the name used as an argument (`command -v program`).
  */
 export function commandPositionSource(program) {
-  const escaped = String(program).replace(/[.*+?^${}()|[\]\\/]/g, '\\/** Reduces volatile detail so equal causes produce equal text. */')
+  const escaped = String(program).replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')
   return `(?:^|[;&|(]\\s*)(?:[A-Za-z_][A-Za-z0-9_]*=\\S*\\s+)*${escaped}(?:\\s|$)`
 }
 
