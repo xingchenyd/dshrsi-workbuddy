@@ -7,7 +7,7 @@
 ### 让 WorkBuddy 从重复失败中积累可验证、可撤销的改进。
 
 [![CI](https://github.com/xingchenyd/dshrsi-workbuddy/actions/workflows/workbuddy.yml/badge.svg?branch=main)](https://github.com/xingchenyd/dshrsi-workbuddy/actions/workflows/workbuddy.yml)
-[![Release](https://img.shields.io/badge/release-0.2.0-287A61)](https://github.com/xingchenyd/dshrsi-workbuddy/releases/tag/workbuddy-v0.2.0)
+[![Release](https://img.shields.io/badge/release-0.2.1-287A61)](https://github.com/xingchenyd/dshrsi-workbuddy/releases/tag/workbuddy-v0.2.1)
 [![Node](https://img.shields.io/badge/Node.js-22%2B-426A52)](#install)
 [![Local](https://img.shields.io/badge/runtime-local_only-3C6F78)](#how-it-works)
 [![License](https://img.shields.io/badge/license-MIT-6E8062)](LICENSE)
@@ -23,7 +23,7 @@ WorkBuddy RSI 是面向 **WorkBuddy 桌面端**的本地自我改进插件。它
 默认路径无需额外 API Key，也不额外发起模型请求。需要更具体的改进时，配套 Skill 可以让 WorkBuddy 当前模型依据真实会话证据编写候选代码，经过验证和激活后使用。
 
 > [!IMPORTANT]
-> **0.2.0 是开发预览版。** 下面的效果数据来自固定测试序列和真实本地工具执行，用于验证插件机制；它们不是 WorkBuddy 真实模型任务成功率、速度或 Token 节省评估。完整测试方法与原始数据均可复现。
+> **0.2.1 是开发预览版。** 下面的效果数据来自固定测试序列和真实本地工具执行，用于验证插件机制；它们不是 WorkBuddy 真实模型任务成功率、速度或 Token 节省评估。完整测试方法与原始数据均可复现。
 
 <table>
 <tr>
@@ -59,7 +59,7 @@ WorkBuddy RSI 是面向 **WorkBuddy 桌面端**的本地自我改进插件。它
 
 ### 方式一：下载发行包（推荐）
 
-1. 从 [v0.2.0 Release](https://github.com/xingchenyd/dshrsi-workbuddy/releases/tag/workbuddy-v0.2.0) 下载 **`workbuddy-rsi-0.2.0.zip`** 并完整解压。
+1. 从 [v0.2.1 Release](https://github.com/xingchenyd/dshrsi-workbuddy/releases/tag/workbuddy-v0.2.1) 下载 **`workbuddy-rsi-0.2.1.zip`** 并完整解压。
 2. 在解压目录打开终端，运行：
 
 ```powershell
@@ -91,16 +91,16 @@ WorkBuddy 运行组件只使用 Node 标准库，以上流程 **不需要先执�
 
 ```powershell
 # 只显示安装计划，不执行
-npm run install:workbuddy -- --dry-run
+node scripts/install-workbuddy.mjs --dry-run
 
 # 使用原生管理器校验清单，不安装
-npm run install:workbuddy -- --validate-only
+node scripts/install-workbuddy.mjs --validate-only
 
 # 使用独立的 WorkBuddy 配置目录测试安装
-npm run install:workbuddy -- --config-dir "C:/temp/workbuddy-rsi-test"
+node scripts/install-workbuddy.mjs --config-dir "C:/temp/workbuddy-rsi-test"
 ```
 
-自动查找不到 WorkBuddy 时，用 `--cli` 指定桌面应用随附的 `cli/bin/codebuddy`。完整参数、校验方法与卸载步骤见 [安装说明](docs/workbuddy/INSTALL.md)。
+PowerShell 下的带参数命令直接运行 `node scripts/install-workbuddy.mjs`，避免部分 npm 脚本入口丢失参数。自动查找不到 WorkBuddy 时，用 `--cli` 指定桌面应用随附的 `cli/bin/codebuddy`。完整参数、校验方法与卸载步骤见 [安装说明](docs/workbuddy/INSTALL.md)。
 
 </details>
 

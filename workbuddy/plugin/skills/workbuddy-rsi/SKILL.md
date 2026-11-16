@@ -5,7 +5,7 @@ display_name: WorkBuddy RSI 自我改进
 display_name_en: WorkBuddy RSI
 description_zh: 查看、验证、启用和撤销 WorkBuddy 的本地 RSI 改进；从实际失败证据生成可检查的改进代码。
 description_en: Inspect and improve WorkBuddy behavior using recorded evidence, executable adaptations, regression gates and rollback.
-version: 0.2.0
+version: 0.2.1
 ---
 
 # WorkBuddy RSI

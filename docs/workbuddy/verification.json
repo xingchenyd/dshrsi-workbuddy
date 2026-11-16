@@ -4,7 +4,7 @@
     "repository": "qybaihe/dshrsi",
     "revision": "c83c10c092215f6709c75be4846425b5157a6d48"
   },
-  "adapter": "0.2.0",
+  "adapter": "0.2.1",
   "local": {
     "platform": "Windows",
     "node": "22.17.0",
@@ -34,7 +34,8 @@
     },
     "isolated_upgrade": "0.1.0 -> 0.1.1 passed with complete SHA256 verification",
     "same_version_stale_cache": "reproduced; installer rejects stale files",
-    "final_user_install_report": "https://github.com/xingchenyd/dshrsi-workbuddy/blob/main/docs/workbuddy-user-install.json"
+    "final_user_install_report": "https://github.com/xingchenyd/dshrsi-workbuddy/blob/main/docs/workbuddy-user-install.json",
+    "powershell_parameter_forwarding": "Native Node commands documented for install options; local npm.ps1 did not forward --validate-only during verification."
   },
   "limits": [
     "No claim of improved real model task success rate",
@@ -79,7 +80,12 @@
       22,
       24
     ],
-    "status": "pending new independent repository run"
+    "status": "success",
+    "run": "https://github.com/xingchenyd/dshrsi-workbuddy/actions/runs/43829787006",
+    "tested_code_commit": "18bcbc2c190c6fffdb219c38dbd2e385ad77f701",
+    "jobs_passed": 6,
+    "tests_per_job": 189,
+    "scope": "Runtime, benchmark and build at the stated commit; release 0.2.1 adds version metadata and direct-Node PowerShell instructions. Latest release CI also recorded outside the bundle in docs/workbuddy-user-install.json."
   },
   "mechanism_benchmark": {
     "result": "benchmarks/results.json",

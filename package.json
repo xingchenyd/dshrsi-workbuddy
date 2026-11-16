@@ -1,6 +1,6 @@
 {
   "name": "dshrsi-workbuddy",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "type": "module",
   "description": "WorkBuddy RSI: native hooks, evidence-based improvements, regression gates and rollback.",

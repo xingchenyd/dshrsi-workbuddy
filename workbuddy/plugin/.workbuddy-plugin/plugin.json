@@ -1,6 +1,6 @@
 {
   "name": "workbuddy-rsi",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "WorkBuddy RSI: native hooks, evidence-based improvements, regression gates and rollback.",
   "homepage": "https://github.com/xingchenyd/dshrsi-workbuddy",
   "repository": "https://github.com/xingchenyd/dshrsi-workbuddy",

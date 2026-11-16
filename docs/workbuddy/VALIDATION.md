@@ -1,6 +1,6 @@
 # 验证记录
 
-日期：2026-11-16。当前发布：0.2.0。本页区分自动回归、受控机制对照、原生安装及真实模型任务。
+日期：2026-11-16。当前发布：0.2.1。本页区分自动回归、受控机制对照、原生安装及真实模型任务。
 
 | 检查 | 结果与范围 |
 | --- | --- |
@@ -37,13 +37,13 @@ macOS/Linux CI 运行无模型的单元、协议、子进程、安装器模拟�
 npm test
 npm run benchmark:workbuddy
 npm run build:workbuddy
-npm run install:workbuddy -- --config-dir "C:/temp/wb-rsi-validation"
+node scripts/install-workbuddy.mjs --config-dir "C:/temp/wb-rsi-validation"
 ```
 
 受控实验无需安装 WorkBuddy。最后一条原生安装命令需要本机已安装 WorkBuddy 桌面应用。测试不会读取个人历史对话数据库。
 
 ## 历史记录
 
-0.1.1 曾在六组 CI 上各通过 188 项测试，代码提交为 f829255e6333ba1e5eba42d4e590a29891701e10。[历史运行](https://github.com/xingchenyd/dshrsi-workbuddy-fork-backup-20261116/actions/runs/43827168315) 保存在归档备份中，不充当 0.2.0 的验证记录。
+0.1.1 曾在六组 CI 上各通过 188 项测试，代码提交为 f829255e6333ba1e5eba42d4e590a29891701e10。[历史运行](https://github.com/xingchenyd/dshrsi-workbuddy-fork-backup-20261116/actions/runs/43827168315) 保存在归档备份中，不充当 0.2.1 的验证记录。
 
 本机原生 Bash/PowerShell 返回形态已从应用安装包核对，覆盖 exitCode、interrupted、signal、sandboxDenied。当前 PowerShell rawResponse 不含 stderr/error 正文，因此能够识别失败与重复失败，但具体缺失程序诊断可能受限。原 DeepSeek Harness E2E / 模型 benchmark 本次未执行。
