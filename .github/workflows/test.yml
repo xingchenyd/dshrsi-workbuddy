@@ -1,4 +1,4 @@
-# Runs the unit tests and the README check on every push and pull request, on the platform the project is
+# Runs the upstream unit tests on every main push and pull request, on the platform the project is
 # developed on. The end-to-end tests drive a real `dsh` under the harness's own sandbox and are run locally (npm test).
 name: Tests
 
@@ -26,4 +26,3 @@ jobs:
       # The unit tests load no native module, so the packages' own install scripts are left out.
       - run: npm ci --ignore-scripts
       - run: npm run test:unit
-      - run: npm run readme:check

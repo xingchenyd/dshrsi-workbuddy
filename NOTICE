@@ -1,0 +1,17 @@
+DSHRSI for WorkBuddy
+
+Upstream: https://github.com/qybaihe/dshrsi
+Base revision: c83c10c092215f6709c75be4846425b5157a6d48 (DSHRSI 0.1.3)
+Original DSHRSI code: Copyright (c) 2026 qybaihe. MIT License.
+WorkBuddy adapter, integration, packaging, documentation and adapter tests:
+Copyright (c) 2026 yd (xingchenyd). MIT License.
+
+This distribution preserves the original license and Git history. It is an
+independently maintained WorkBuddy adaptation, not an official Tencent or
+DeepSeek product. Upstream benchmarks do not measure this adapter.
+
+Project participation: yd describes their involvement in the original DSHRSI
+project's co-creation before contributing code through Git. This statement
+records that declared participation; it does not retroactively attribute
+qybaihe's historical code commits to yd. The WorkBuddy adaptation's authored
+commits provide a separate, inspectable contribution record.

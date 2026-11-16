@@ -4,3 +4,8 @@ node_modules/
 *.tgz
 # read-only reference checkout of DeepSeek Harness, not part of this repository
 deepseek-harness/
+
+dist/
+.workbuddy-rsi/
+.wb-rsi/
+*.zip

@@ -1,0 +1,30 @@
+name: WorkBuddy regression
+on:
+  push:
+    branches: [codex/workbuddy-rsi]
+    paths: ['packages/**', 'test/**', 'scripts/**', 'workbuddy/**', 'package*.json', '.github/workflows/workbuddy.yml']
+  pull_request:
+    paths: ['packages/**', 'test/**', 'scripts/**', 'workbuddy/**', '.github/workflows/workbuddy.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        node: [22, 24]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm test
+      - run: npm run build:workbuddy
+      - uses: actions/upload-artifact@v4
+        if: matrix.os == 'windows-latest' && matrix.node == 22
+        with:
+          name: workbuddy-rsi-plugin
+          path: dist/workbuddy-rsi-marketplace

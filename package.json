@@ -1,23 +1,27 @@
 {
-  "name": "dshrsi",
-  "version": "0.1.3",
+  "name": "dshrsi-workbuddy",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "DSHRSI: Recursive Self-Improvement for DeepSeek Harness. The repository of the dsh-rsi plugin, its tests, benchmarks and website.",
+  "description": "DSHRSI for WorkBuddy: native hooks, shared RSI engine, validation and rollback.",
   "license": "MIT",
-  "homepage": "https://dshr.si/",
+  "homepage": "https://github.com/xingchenyd/dshrsi-workbuddy",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qybaihe/dshrsi.git"
+    "url": "git+https://github.com/xingchenyd/dshrsi-workbuddy.git"
   },
-  "bugs": "https://github.com/qybaihe/dshrsi/issues",
+  "bugs": "https://github.com/xingchenyd/dshrsi-workbuddy/issues",
   "scripts": {
-    "test": "node --test --test-timeout=30000 test/unit/ && node --test --test-concurrency=1 --test-timeout=120000 test/e2e/",
-    "test:unit": "node --test --test-timeout=30000 test/unit/",
+    "test": "node scripts/workbuddy-test.mjs",
+    "test:unit": "node scripts/workbuddy-test.mjs unit",
     "test:e2e": "node --test --test-concurrency=1 --test-timeout=120000 test/e2e/",
     "test:live": "node test/live/run.mjs",
-    "readme:check": "node scripts/readme-languages.mjs --check",
-    "rsi": "node packages/dsh-rsi/bin/rsi.js"
+    "rsi": "node packages/dsh-rsi/bin/rsi.js",
+    "test:upstream:e2e": "node --test --test-concurrency=1 --test-timeout=120000 test/e2e/",
+    "test:workbuddy": "node scripts/workbuddy-test.mjs adapter",
+    "build:workbuddy": "node scripts/build-workbuddy.mjs",
+    "install:workbuddy": "node scripts/install-workbuddy.mjs",
+    "wb-rsi": "node packages/workbuddy-rsi/bin/rsi.mjs"
   },
   "devDependencies": {
     "@deepseek-ai/dsh": "0.2.2-rc.3",

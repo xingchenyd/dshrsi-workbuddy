@@ -1,0 +1,10 @@
+{
+  "name": "workbuddy-rsi",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "DSHRSI host adapter for Tencent WorkBuddy Desktop hooks",
+  "license": "MIT",
+  "engines": { "node": ">=22" },
+  "bin": { "workbuddy-rsi-hook": "bin/hook.mjs" }
+}
