@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /** Install through WorkBuddy's own plugin manager; never edit its registry files. */
-import { existsSync, readFileSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync, lstatSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { homedir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -25,6 +26,8 @@ Usage: node scripts/install-workbuddy.mjs [options]
 Build first with npm run build:workbuddy. Keep the built marketplace directory in
 place after installation. The native CLI handles registration and preserves other
 plugins/settings. This does not start a model conversation or configure models.
+Plugin payloads are versioned: bump the plugin and marketplace entry versions when
+changing packaged files. The installer checks installed file hashes after install.
 `;
 
 export function parseArgs(args) {
@@ -136,7 +139,9 @@ export function createPlan(options = {}, dependencies = {}) {
   ];
   if (!options.validateOnly) commands.push(
     ['plugin', 'marketplace', 'add', marketplace, '--name', MARKETPLACE_NAME],
+    ['plugin', 'marketplace', 'update', MARKETPLACE_NAME],
     ['plugin', 'install', PLUGIN_ID, '--scope', 'user'],
+    ['plugin', 'update', PLUGIN_ID, '--scope', 'user'],
     ['plugin', 'list', '--json'],
   );
   return {
@@ -159,6 +164,32 @@ export function verifyInstalledPlugin(output, version) {
     throw new Error(`Installed version ${plugin.version} differs from built version ${version}. Use WorkBuddy's plugin update command before reporting an upgrade complete.`);
   }
   return plugin;
+}
+
+export function verifyInstalledFiles(sourceDir, installedDir) {
+  if (typeof installedDir !== 'string' || !installedDir) throw new Error('WorkBuddy did not report an installPath; installed content cannot be verified');
+  const mismatches = [];
+  let verifiedFiles = 0;
+  const digest = file => createHash('sha256').update(readFileSync(file)).digest('hex');
+  const visit = relative => {
+    for (const entry of readdirSync(path.join(sourceDir, relative), { withFileTypes: true })) {
+      const local = path.join(relative, entry.name);
+      if (entry.isSymbolicLink()) throw new Error(`Packaged source contains an unsupported symbolic link: ${local}`);
+      if (entry.isDirectory()) visit(local);
+      else if (entry.isFile()) {
+        const installed = path.join(installedDir, local);
+        try {
+          if (!lstatSync(installed).isFile() || digest(path.join(sourceDir, local)) !== digest(installed)) mismatches.push(local);
+          else verifiedFiles++;
+        } catch { mismatches.push(local); }
+      }
+    }
+  };
+  visit('');
+  if (mismatches.length) {
+    throw new Error(`Installed content differs from the built plugin (${mismatches.slice(0, 5).join(', ')}). WorkBuddy may reuse a same-version cache. Bump the plugin and marketplace entry versions, rebuild, and rerun this installer; do not report the cached build as current.`);
+  }
+  return { verifiedFiles };
 }
 
 export function runCommand(command, args, { env, timeoutMs, log = console.log } = {}) {
@@ -199,10 +230,13 @@ export async function install(options = {}, dependencies = {}) {
   }
   const installedPlugin = options.validateOnly ? undefined
     : verifyInstalledPlugin(results.at(-1).stdout, plan.pluginVersion);
+  const contentVerification = installedPlugin
+    ? verifyInstalledFiles(plan.pluginDir, installedPlugin.installPath) : undefined;
+  if (contentVerification) log(`Verified ${contentVerification.verifiedFiles} installed files against the built plugin (SHA256).`);
   log(options.validateOnly
     ? 'WorkBuddy native manifest validation passed. No plugin was installed.'
     : `Installed ${PLUGIN_ID}. Start a new WorkBuddy task (restart WorkBuddy if needed), then invoke the workbuddy-rsi Skill. Keep ${plan.marketplace} available. Installation checks do not prove model-task behavior.`);
-  return { dryRun: false, plan, results, installedPlugin };
+  return { dryRun: false, plan, results, installedPlugin, contentVerification };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {

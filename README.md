@@ -4,7 +4,7 @@
 
 **把 DSHRSI 的可验证改进循环接入 WorkBuddy 桌面端。**
 
-由 **yd / [xingchenyd](https://github.com/xingchenyd)** 发起并维护 WorkBuddy 适配，基于 **[qybaihe/dshrsi](https://github.com/qybaihe/dshrsi)**。保留原项目 MIT 许可及 Git 提交历史；原始介绍见 [README.upstream.md](README.upstream.md)。当前版本 **0.1.0 · 开发预览**。
+由 **yd / [xingchenyd](https://github.com/xingchenyd)** 发起并维护 WorkBuddy 适配，基于 **[qybaihe/dshrsi](https://github.com/qybaihe/dshrsi)**。保留原项目 MIT 许可及 Git 提交历史；原始介绍见 [README.upstream.md](README.upstream.md)。当前版本 **0.1.1 · 开发预览**。
 
 本项目复用原有检测器、改进生成模板、五阶段验证、持久化改进库及撤销机制，以 WorkBuddy 原生 hooks 连接它们。它改变围绕工具调用的行为，不训练模型，也不修改 WorkBuddy 安装文件。
 

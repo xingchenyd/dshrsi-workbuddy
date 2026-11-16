@@ -13,7 +13,7 @@ npm run install:workbuddy
 
 不需要 `npm install`：WorkBuddy 适配和上游核心仅依赖 Node 标准库。根项目保留的开发依赖用于原 DeepSeek Harness 端到端测试，普通安装无需下载。
 
-安装器定位桌面应用自带的 `cli/bin/codebuddy`，设置桌面运行模式，然后使用原生 `plugin validate`、`plugin marketplace add`、`plugin install`、`plugin list`。默认配置目录是 `~/.workbuddy`，不会自行拼写内部插件注册文件。
+安装器定位桌面应用自带的 `cli/bin/codebuddy`，设置桌面运行模式，然后使用原生 `plugin validate`、`plugin marketplace add/update`、`plugin install/update`、`plugin list`。最后逐文件比较 SHA256，确认安装目录与发布包一致。默认配置目录是 `~/.workbuddy`，不会自行拼写内部插件注册文件。
 
 自动发现失败时，可指定桌面应用的 CLI 入口：
 
@@ -29,7 +29,7 @@ npm run install:workbuddy -- --cli "C:\Users\YOUR_NAME\AppData\Local\Programs\Wo
 
 ## 使用发行包
 
-下载 Release 的 `workbuddy-rsi-0.1.0.zip`，完整解压。包内包含自包含插件市场和 `install-workbuddy.mjs`。在解压目录执行：
+下载 Release 的 `workbuddy-rsi-0.1.1.zip`，完整解压。包内包含自包含插件市场和 `install-workbuddy.mjs`。在解压目录执行：
 
 ```powershell
 node install-workbuddy.mjs --marketplace ".\workbuddy-rsi-marketplace"
@@ -65,4 +65,4 @@ node ".\workbuddy-rsi-marketplace\plugins\workbuddy-rsi\packages\workbuddy-rsi\b
 
 先执行 `off`，然后在 WorkBuddy 插件管理中禁用或卸载 `workbuddy-rsi`，再执行 `stop`。通过应用卸载，不直接编辑其 settings 或插件注册表。保留 `~/.workbuddy-rsi` 可保留已有改进记录；本项目不会自动删除它。
 
-更新代码或重新构建后，重新执行安装器。当前正在运行的辅助进程仍可能使用旧代码；先 `stop` 再开启新会话，以加载更新版本。
+更新时下载新版本、重新构建并执行安装器。WorkBuddy 可能复用相同版本号的缓存，因此维护者修改插件文件后必须同步提升 package、plugin、Skill 的版本号；安装器会拒绝把旧缓存报告为新代码。当前正在运行的辅助进程仍可能使用旧代码；先 `stop` 再开启新会话，以加载更新版本。

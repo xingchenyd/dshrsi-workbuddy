@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import {
   parseArgs, cliCandidates, discoverCli, createEnvironment, createPlan,
-  readMarketplace, install, runCommand, verifyInstalledPlugin, PLUGIN_ID,
+  readMarketplace, install, runCommand, verifyInstalledPlugin, verifyInstalledFiles, PLUGIN_ID,
 } from '../../scripts/install-workbuddy.mjs';
 
 async function fixture(t) {
@@ -74,7 +74,9 @@ test('dry run starts no processes and preserves unrelated configuration exactly'
   });
   assert.equal(result.results.length, 0);
   assert.equal(await readFile(settings, 'utf8'), contents);
-  assert.deepEqual(result.plan.commands[3].args.slice(-5), ['plugin', 'install', PLUGIN_ID, '--scope', 'user']);
+  assert.deepEqual(result.plan.commands[4].args.slice(-5), ['plugin', 'install', PLUGIN_ID, '--scope', 'user']);
+  assert.deepEqual(result.plan.commands[3].args.slice(-4), ['plugin', 'marketplace', 'update', 'dshrsi-workbuddy']);
+  assert.deepEqual(result.plan.commands[5].args.slice(-5), ['plugin', 'update', PLUGIN_ID, '--scope', 'user']);
 });
 
 test('validate-only uses native manifest validation and never registers a marketplace', async t => {
@@ -102,13 +104,29 @@ test('repeat installs delegate idempotency to native marketplace/install command
   const calls = [];
   const dependencies = { log() {}, async runCommand(command, args) {
     calls.push(args);
-    return { exitCode: 0, stdout: JSON.stringify([{ id: PLUGIN_ID, scope: 'user', enabled: true, version: '0.1.0' }]) };
+    return { exitCode: 0, stdout: JSON.stringify([{ id: PLUGIN_ID, scope: 'user', enabled: true, version: '0.1.0', installPath: f.plugin }]) };
   } };
   await install(f, dependencies);
   await install(f, dependencies);
-  assert.equal(calls.length, 10);
-  assert.deepEqual(calls.slice(0, 5), calls.slice(5));
+  assert.equal(calls.length, 14);
+  assert.deepEqual(calls.slice(0, 7), calls.slice(7));
   assert.ok(calls.every(args => !args.includes('uninstall') && !args.includes('remove')));
+});
+
+test('installed content verification detects stale same-version payloads and missing files', async t => {
+  const f = await fixture(t);
+  const installed = path.join(f.directory, 'installed');
+  await mkdir(path.join(installed, '.workbuddy-plugin'), { recursive: true });
+  const manifest = await readFile(path.join(f.plugin, '.workbuddy-plugin', 'plugin.json'));
+  await writeFile(path.join(installed, '.workbuddy-plugin', 'plugin.json'), manifest);
+  await writeFile(path.join(f.plugin, 'payload.mjs'), 'export const answer = 42;');
+  await writeFile(path.join(installed, 'payload.mjs'), 'export const answer = 41;');
+  assert.throws(() => verifyInstalledFiles(f.plugin, installed), /Bump the plugin and marketplace entry versions/);
+  await rm(path.join(installed, 'payload.mjs'));
+  assert.throws(() => verifyInstalledFiles(f.plugin, installed), /payload.mjs/);
+  await writeFile(path.join(installed, 'payload.mjs'), 'export const answer = 42;');
+  assert.equal(verifyInstalledFiles(f.plugin, installed).verifiedFiles, 2);
+  assert.throws(() => verifyInstalledFiles(f.plugin, undefined), /installPath/);
 });
 
 test('installation succeeds only when native registry reports the expected enabled version', () => {

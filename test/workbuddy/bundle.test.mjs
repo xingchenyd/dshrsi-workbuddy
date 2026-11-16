@@ -43,6 +43,10 @@ test('clean build is self-contained after source removal, including the bundled 
   for (const item of ['scripts/build-workbuddy.mjs', 'workbuddy/plugin', 'packages/workbuddy-rsi', 'packages/dsh-rsi/src', 'packages/dsh-rsi/docs', 'packages/dsh-rsi/package.json', 'LICENSE', 'NOTICE', 'README.md', 'AUTHORS.md', 'README.upstream.md', 'docs/workbuddy']) {
     copyTree(path.join(repository, item), path.join(source, item))
   }
+  // Git does not preserve empty directories. Exercise a fresh checkout rather
+  // than accidentally relying on the developer's untracked hooks directory.
+  const optionalHooks = path.join(source, 'workbuddy/plugin/hooks')
+  if (fs.existsSync(optionalHooks) && fs.readdirSync(optionalHooks).length === 0) fs.rmdirSync(optionalHooks)
   const built = JSON.parse(run([path.join(source, 'scripts/build-workbuddy.mjs')], { cwd: temporary }))
   assert.equal(built.plugin, path.join(source, 'dist/workbuddy-rsi'))
   fs.renameSync(built.plugin, detached)

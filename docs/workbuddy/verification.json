@@ -4,12 +4,12 @@
     "repository": "qybaihe/dshrsi",
     "revision": "c83c10c092215f6709c75be4846425b5157a6d48"
   },
-  "adapter": "0.1.0",
+  "adapter": "0.1.1",
   "local": {
     "platform": "Windows",
     "node": "22.17.0",
     "upstream_unit_tests": 148,
-    "complete_tests": 187,
+    "complete_tests": 188,
     "failed": 0,
     "includes_real_subprocess_ipc": true,
     "tool_events": "controlled fixtures"
@@ -28,7 +28,8 @@
       "known_marketplaces.json:/dshrsi-workbuddy",
       "installed_plugins.json:/plugins/workbuddy-rsi@dshrsi-workbuddy"
     ],
-    "real_model_task": "not run"
+    "real_model_task": "not run",
+    "installed_version": "0.1.0 (upgrade pending)"
   },
   "ci": {
     "matrix": [
@@ -40,7 +41,9 @@
       22,
       24
     ],
-    "status": "pending GitHub run"
+    "status": "pending GitHub run",
+    "previous_run": "https://github.com/xingchenyd/dshrsi-workbuddy/actions/runs/43825328271",
+    "previous_failure": "Build relied on an untracked empty hooks directory; fixed with explicit mkdir and fresh-clone regression"
   },
   "limits": [
     "No claim of improved real model task success rate",

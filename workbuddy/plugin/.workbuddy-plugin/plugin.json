@@ -1,12 +1,20 @@
 {
   "name": "workbuddy-rsi",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "DSHRSI for WorkBuddy: observe recurring failures, validate adaptations, reuse and undo them locally.",
-  "author": { "name": "yd (xingchenyd)", "url": "https://github.com/xingchenyd" },
+  "author": {
+    "name": "yd (xingchenyd)",
+    "url": "https://github.com/xingchenyd"
+  },
   "homepage": "https://github.com/xingchenyd/dshrsi-workbuddy",
   "repository": "https://github.com/xingchenyd/dshrsi-workbuddy",
   "license": "MIT",
-  "keywords": ["workbuddy", "rsi", "dshrsi", "self-improvement"],
+  "keywords": [
+    "workbuddy",
+    "rsi",
+    "dshrsi",
+    "self-improvement"
+  ],
   "skills": "./skills",
   "commands": "./commands",
   "hooks": "./hooks/hooks.json"

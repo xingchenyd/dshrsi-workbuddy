@@ -5,7 +5,7 @@ display_name: DSHRSI 自我改进
 display_name_en: DSHRSI for WorkBuddy
 description_zh: 查看、验证、启用和撤销 WorkBuddy 的本地 RSI 改进；从实际失败证据生成可检查的改进代码。
 description_en: Inspect and improve WorkBuddy behavior using recorded evidence, executable adaptations, regression gates and rollback.
-version: 0.1.0
+version: 0.1.1
 author: yd (xingchenyd), based on qybaihe/dshrsi
 ---
 
