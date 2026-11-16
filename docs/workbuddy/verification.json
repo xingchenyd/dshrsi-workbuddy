@@ -21,7 +21,6 @@
     "isolated_install_node_22": "passed",
     "isolated_install_node_24": "passed",
     "isolated_repeat_install": "passed",
-    "user_install": "enabled",
     "plugin_id": "workbuddy-rsi@dshrsi-workbuddy",
     "changed_configuration_paths": [
       "settings.json:/enabledPlugins/workbuddy-rsi@dshrsi-workbuddy",
@@ -29,7 +28,13 @@
       "installed_plugins.json:/plugins/workbuddy-rsi@dshrsi-workbuddy"
     ],
     "real_model_task": "not run",
-    "installed_version": "0.1.0 (upgrade pending)"
+    "user_initial_install": {
+      "version": "0.1.0",
+      "status": "enabled"
+    },
+    "isolated_upgrade": "0.1.0 -> 0.1.1 passed with complete SHA256 verification",
+    "same_version_stale_cache": "reproduced; installer rejects stale files",
+    "final_user_install_report": "https://github.com/xingchenyd/dshrsi-workbuddy/blob/codex/workbuddy-rsi/docs/workbuddy-user-install.json"
   },
   "ci": {
     "matrix": [
@@ -41,9 +46,21 @@
       22,
       24
     ],
-    "status": "pending GitHub run",
-    "previous_run": "https://github.com/xingchenyd/dshrsi-workbuddy/actions/runs/43825328271",
-    "previous_failure": "Build relied on an untracked empty hooks directory; fixed with explicit mkdir and fresh-clone regression"
+    "status": "success",
+    "run": "https://github.com/xingchenyd/dshrsi-workbuddy/actions/runs/43827168315",
+    "tested_code_commit": "f829255e6333ba1e5eba42d4e590a29891701e10",
+    "jobs_passed": 6,
+    "tests_per_job": 188,
+    "previous_failures": [
+      {
+        "run": "43825328271",
+        "reason": "Untracked empty hooks directory absent in clean clone; fixed with explicit output mkdir"
+      },
+      {
+        "run": "43826515645",
+        "reason": "Windows helper cwd/shutdown resource release and macOS /var realpath assumptions; fixed and strengthened tests"
+      }
+    ]
   },
   "limits": [
     "No claim of improved real model task success rate",

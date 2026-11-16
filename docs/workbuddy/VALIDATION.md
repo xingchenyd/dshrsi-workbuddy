@@ -14,7 +14,7 @@
 | WorkBuddy 真实模型任务 | 未执行；没有据此声称实际模型任务成功率或性能提高 |
 | 原 DeepSeek Harness E2E / benchmark | 本次未执行，不把上游报告当作 WorkBuddy 测试结果 |
 
-本机用户范围安装已完成，原生查询显示 `workbuddy-rsi@dshrsi-workbuddy` 为 `0.1.0`、`user`、`enabled:true`。安装前后对设置的比较只发现三个预期新增项：本插件启用项、本插件市场登记、本插件安装登记。最终完整测试计数见 `verification.json`。GitHub Actions 配置为 Windows、Ubuntu、macOS × Node 22、24；运行结果以 [当前 Actions 页面](https://github.com/xingchenyd/dshrsi-workbuddy/actions/workflows/workbuddy.yml) 为准，配置矩阵本身不等于通过。
+本机用户范围首次安装已完成，原生查询显示 `workbuddy-rsi@dshrsi-workbuddy` 为 `0.1.0`、`user`、`enabled:true`。安装前后对设置的比较只发现三个预期新增项：本插件启用项、本插件市场登记、本插件安装登记。最终完整测试计数见 `verification.json`。GitHub Actions 的 Windows、Ubuntu、macOS × Node 22、24 六组检查已全部通过，每组 188 项测试，并完成插件构建。[已通过的运行记录](https://github.com/xingchenyd/dshrsi-workbuddy/actions/runs/43827168315) 对应代码提交 `f829255e6333ba1e5eba42d4e590a29891701e10`。
 
 ## 自动测试的证据边界
 
@@ -35,3 +35,5 @@ npm run install:workbuddy -- --config-dir "C:\temp\wb-rsi-validation"
 macOS/Linux 的安装验证需要相应平台的 WorkBuddy 桌面应用；GitHub CI 只运行无模型的单元、协议、进程、安装器模拟及分发包检查，不会安装腾讯桌面应用。
 
 本机原生 Bash/PowerShell 返回形态已从随应用安装的 CLI 源码核对，覆盖 exitCode、interrupted、signal、sandboxDenied。当前 PowerShell rawResponse 不含 stderr/error 正文，因此能识别失败与重复失败，但具体缺失程序诊断可能受限。
+
+0.1.0 → 0.1.1 的原生隔离升级已通过，并逐文件核对 SHA256。同版本改文件时确实会命中旧缓存，新安装器现会拒绝这种假成功。正式发行包在本机的最终用户安装记录独立保存在[源仓库安装核验文件](https://github.com/xingchenyd/dshrsi-workbuddy/blob/codex/workbuddy-rsi/docs/workbuddy-user-install.json)，不把每台机器的安装状态打包进插件。
